@@ -1,12 +1,16 @@
 import { useState } from 'react';
 import ApplicationLogo from '@/Components/ApplicationLogo';
+import { useSelector } from 'react-redux'
 import Dropdown from '@/Components/Dropdown';
 import NavLink from '@/Components/NavLink';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
+import { MdShoppingCart } from "react-icons/md";
 import { Link } from '@inertiajs/react';
 
 export default function Authenticated({ user, header, children }) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
+    const { cartItems } = useSelector(state => state.cart)
+
 
     return (
         <div className="min-h-screen bg-gray-100">
@@ -113,9 +117,18 @@ export default function Authenticated({ user, header, children }) {
                 </div>
             </nav>
 
+
             {header && (
                 <header className="bg-white shadow">
-                    <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">{header}</div>
+                    <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">{
+                        <div className='flex items-center justify-between'>
+                            {header}
+                            <div className='w-10 h-10 rounded-full flex items-center justify-center shadow bg-white border relative '>
+                                <span className='absolute top-[-3px] right-[-3px] bg-red-500 text-white h-4 w-4 flex items-center justify-center rounded-full text-xs'>{cartItems?.length}</span>
+                                <MdShoppingCart />
+                            </div>
+                        </div>
+                    }</div>
                 </header>
             )}
 
