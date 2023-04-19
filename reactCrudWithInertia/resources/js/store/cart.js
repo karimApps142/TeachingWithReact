@@ -9,8 +9,8 @@ export const cartSlice = createSlice({
     initialState,
     reducers: {
         addToCart: (state, { payload }) => {
-            const existItems = state.cartItems.find((p) => p.id === payload.id);
-            if (existItems) {
+            const existItem = state.cartItems.find((p) => p.id === payload.id);
+            if (existItem) {
                 state.cartItems.map((p, i) =>
                     p.id === payload.id ? state.cartItems[i].qty++ : null
                 );
@@ -21,9 +21,29 @@ export const cartSlice = createSlice({
                 });
             }
         },
+        increament: (state, { payload }) => {
+            const existItem = state.cartItems.find((p) => p.id === payload);
+            if (existItem) {
+                state.cartItems.map((p, i) =>
+                    p.id === payload ? state.cartItems[i].qty++ : null
+                );
+            }
+        },
+        decreament: (state, { payload }) => {
+            const existItem = state.cartItems.find((p) => p.id === payload);
+            if (existItem && existItem.qty > 1) {
+                state.cartItems.map((p, i) =>
+                    p.id === payload ? state.cartItems[i].qty-- : null
+                );
+            } else if (existItem) {
+                state.cartItems = state.cartItems.filter(
+                    (p) => p.id !== payload
+                );
+            }
+        },
     },
 });
 
-export const { addToCart } = cartSlice.actions;
+export const { addToCart, increament, decreament } = cartSlice.actions;
 
 export default cartSlice.reducer;

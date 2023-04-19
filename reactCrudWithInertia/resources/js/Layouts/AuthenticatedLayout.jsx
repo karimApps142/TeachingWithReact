@@ -5,11 +5,16 @@ import Dropdown from '@/Components/Dropdown';
 import NavLink from '@/Components/NavLink';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
 import { MdShoppingCart } from "react-icons/md";
-import { Link } from '@inertiajs/react';
+import { Link, useForm } from '@inertiajs/react';
 
 export default function Authenticated({ user, header, children }) {
+    const { get } = useForm();
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
     const { cartItems } = useSelector(state => state.cart)
+
+    const goToCart = () => {
+        get(route('cart'))
+    }
 
 
     return (
@@ -123,7 +128,7 @@ export default function Authenticated({ user, header, children }) {
                     <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">{
                         <div className='flex items-center justify-between'>
                             {header}
-                            <div className='w-10 h-10 rounded-full flex items-center justify-center shadow bg-white border relative '>
+                            <div onClick={goToCart} className='w-10 h-10 rounded-full flex items-center justify-center shadow bg-white border relative cursor-pointer '>
                                 <span className='absolute top-[-3px] right-[-3px] bg-red-500 text-white h-4 w-4 flex items-center justify-center rounded-full text-xs'>{cartItems?.length}</span>
                                 <MdShoppingCart />
                             </div>

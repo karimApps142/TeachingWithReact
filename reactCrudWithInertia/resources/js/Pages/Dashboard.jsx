@@ -1,6 +1,6 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { addToCart } from '@/store/cart';
-import { Head, Link, useForm } from '@inertiajs/react';
+import { Head, Link } from '@inertiajs/react';
 import { useDispatch } from 'react-redux'
 
 
@@ -8,8 +8,6 @@ import { useDispatch } from 'react-redux'
 export default function Dashboard({ auth, products }) {
 
     const dispatch = useDispatch();
-
-    const { get } = useForm({})
 
     const goToCart = (product) => {
         dispatch(addToCart(product))

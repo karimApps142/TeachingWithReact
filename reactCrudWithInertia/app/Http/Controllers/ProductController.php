@@ -47,5 +47,6 @@ class ProductController extends Controller
 
     function showCart()
     {
+        return  Inertia::render("Cart");
     }
 }

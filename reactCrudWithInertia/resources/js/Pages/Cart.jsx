@@ -1,8 +1,12 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
+import { decreament, increament } from '@/store/cart';
 import { Head } from '@inertiajs/react';
+import { useDispatch, useSelector } from 'react-redux';
 
 
-export default function Cart({ auth , todos }) {
+export default function Cart({ auth }) {
+    const dispatch = useDispatch();
+    const { cartItems } = useSelector(state => state.cart)
 
     return (
         <AuthenticatedLayout
@@ -12,10 +16,29 @@ export default function Cart({ auth , todos }) {
             <Head title="Cart" />
 
             <div className="py-12">
-                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                  Cart Page
+                <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 flex items-center flex-wrap">
+                    {
+                        cartItems.map(cartItem =>
+                            <div className='p-2 rounded-lg shadow bg-white m-2' key={cartItem.id}>
+                                <img className='w-full h-16 rounded object-cover' src={cartItem.image} />
+                                <p className='text-lg font-bold '>{cartItem.title}</p>
+                                <p>$ {cartItem.price * cartItem.qty}</p>
+                                <div className='flex items-center justify-center mt-2'>
+                                    <button onClick={() => dispatch(decreament(cartItem.id))} className='mr-2 bg-green-700 text-white rounded shadow px-3'>-</button>
+                                    <span>{cartItem.qty}</span>
+                                    <button onClick={() => dispatch(increament(cartItem.id))} className='ml-2 bg-green-700 text-white rounded shadow px-3'>+</button>
+                                </div>
+
+                            </div>)
+                    }
+                </div>
+                <div className='flex items-end justify-center flex-col self-end mr-4 sm:px-6 '>
+                    <h2>Total</h2>
+                    <span>$ {cartItems.map(p => p.price * p.qty).reduce((add, a) => add + a, 0)}</span>
                 </div>
             </div>
+
+
         </AuthenticatedLayout>
     );
 }
