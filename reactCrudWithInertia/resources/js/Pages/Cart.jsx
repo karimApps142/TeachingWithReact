@@ -1,12 +1,19 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { decreament, increament } from '@/store/cart';
 import { Head } from '@inertiajs/react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 
 export default function Cart({ auth }) {
     const dispatch = useDispatch();
     const { cartItems } = useSelector(state => state.cart)
+
+    const [items, setItems] = useState(cartItems)
+
+    useEffect(() => {
+        // api call 
+    }, [])
 
     return (
         <AuthenticatedLayout
@@ -18,7 +25,7 @@ export default function Cart({ auth }) {
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 flex items-center flex-wrap">
                     {
-                        cartItems.map(cartItem =>
+                        items.map(cartItem =>
                             <div className='p-2 rounded-lg shadow bg-white m-2' key={cartItem.id}>
                                 <img className='w-full h-16 rounded object-cover' src={cartItem.image} />
                                 <p className='text-lg font-bold '>{cartItem.title}</p>

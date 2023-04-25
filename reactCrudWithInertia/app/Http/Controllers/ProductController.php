@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cart;
 use App\Models\Product;
 use Inertia\Inertia;
 
@@ -48,5 +49,33 @@ class ProductController extends Controller
     function showCart()
     {
         return  Inertia::render("Cart");
+    }
+
+    function createCart()
+    {
+        $validate =  request()->validate([
+            'title' => "required",
+            'price' => "required",
+            'qty' => "required",
+            'image' => "required",
+        ]);
+
+        Cart::create($validate);
+
+        return response()->json(['message' => "created"]);
+    }
+
+    function updateCart(Cart $cart)
+    {
+        $validate =  request()->validate([
+            'title' => "required",
+            'price' => "required",
+            'qty' => "required",
+            'image' => "required",
+        ]);
+
+        $cart->update($validate);
+
+        return response()->json(['message' => "updated"]);
     }
 }
