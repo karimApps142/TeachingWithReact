@@ -1,5 +1,5 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { decreament, increament } from "@/store/cart";
+import { decreament, increament, setCartItems } from "@/store/cart";
 import { Head } from "@inertiajs/react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -14,13 +14,17 @@ export default function Cart({ auth }) {
         axios
             .get("http://127.0.0.1:8000/api/cart")
             .then((response) => {
-                setItems(response.data);
-                
+                dispatch(setCartItems(response.data))
+
             })
             .catch((error) => {
                 console.log(error);
             });
-    }, [items]);
+    }, []);
+
+    useEffect(() => {
+        setItems(cartItems)
+    }, [cartItems])
 
     return (
         <AuthenticatedLayout

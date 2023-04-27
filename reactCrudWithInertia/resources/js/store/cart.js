@@ -47,6 +47,9 @@ export const cartSlice = createSlice({
                     });
             }
         },
+        setCartItems: (state, { payload }) => {
+            state.cartItems = payload;
+        },
         increament: (state, { payload }) => {
             const existItem = state.cartItems.find((p) => p.id === payload);
             if (existItem) {
@@ -70,6 +73,7 @@ export const cartSlice = createSlice({
     },
 });
 
-export const { addToCart, increament, decreament } = cartSlice.actions;
+export const { addToCart, increament, decreament, setCartItems } =
+    cartSlice.actions;
 
 export default cartSlice.reducer;
