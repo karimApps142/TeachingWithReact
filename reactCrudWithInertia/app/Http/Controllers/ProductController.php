@@ -78,4 +78,11 @@ class ProductController extends Controller
 
         return response()->json(['message' => "updated"]);
     }
+
+    function getCartItems()
+    {
+
+        $cart = Cart::all();
+        return response()->json($cart);
+    }
 }

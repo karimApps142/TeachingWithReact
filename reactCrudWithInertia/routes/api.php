@@ -9,3 +9,5 @@ use Illuminate\Support\Facades\Route;
 Route::post('update/cart', [ProductController::class, 'createCart']);
 
 Route::post('update/cart/{cart}', [ProductController::class, 'updateCart']);
+
+Route::get("cart", [ProductController::class, 'getCartItems']);
