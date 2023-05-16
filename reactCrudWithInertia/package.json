@@ -20,7 +20,9 @@
     },
     "dependencies": {
         "@reduxjs/toolkit": "^1.9.5",
+        "openai": "^3.2.1",
         "react-icons": "^4.8.0",
-        "react-redux": "^8.0.5"
+        "react-redux": "^8.0.5",
+        "replicate": "^0.12.1"
     }
 }

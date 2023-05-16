@@ -3,12 +3,16 @@ import axios from "axios";
 
 const initialState = {
     cartItems: [],
+    items: [],
 };
 
 export const cartSlice = createSlice({
     name: "cart",
     initialState,
     reducers: {
+        setItems: (state, { payload }) => {
+            state.items = payload;
+        },
         addToCart: (state, { payload }) => {
             const existItem = state.cartItems.find((p) => p.id === payload.id);
             if (existItem) {
@@ -73,7 +77,7 @@ export const cartSlice = createSlice({
     },
 });
 
-export const { addToCart, increament, decreament, setCartItems } =
+export const { addToCart, increament, decreament, setCartItems, setItems } =
     cartSlice.actions;
 
 export default cartSlice.reducer;

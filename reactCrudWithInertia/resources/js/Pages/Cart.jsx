@@ -1,5 +1,5 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
-import { decreament, increament, setCartItems } from "@/store/cart";
+import { decreament, increament, setCartItems, setItems } from "@/store/cart";
 import { Head } from "@inertiajs/react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -7,8 +7,8 @@ import axios from "axios";
 
 export default function Cart({ auth }) {
     const dispatch = useDispatch();
-    const { cartItems } = useSelector((state) => state.cart);
-    const [items, setItems] = useState(cartItems);
+    const { cartItems, items } = useSelector((state) => state.cart);
+    // const [items, setItems] = useState(cartItems);
 
     useEffect(() => {
         axios
@@ -23,7 +23,7 @@ export default function Cart({ auth }) {
     }, []);
 
     useEffect(() => {
-        setItems(cartItems)
+        dispatch(setItems(cartItems))
     }, [cartItems])
 
     return (

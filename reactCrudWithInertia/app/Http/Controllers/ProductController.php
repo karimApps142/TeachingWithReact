@@ -43,12 +43,14 @@ class ProductController extends Controller
 
     function show()
     {
+
         return  Inertia::render("AddProduct");
     }
 
     function showCart()
     {
-        return  Inertia::render("Cart");
+
+        return  Inertia::render("Cart", ['serverItems' => Cart::all()]);
     }
 
     function createCart()
